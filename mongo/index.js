@@ -1,27 +1,25 @@
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/Repay');
+var db = mongoose.connect('mongodb://localhost/Alime');
 
 var userSchema = mongoose.Schema({
-  id : { type : String },
-  password : { type : String },
-  name : { type : String },
-  apikey : { type : String },
-  isLogin : { type : Boolean },
-  isParent : { type : Boolean },
-  article : { type : Array }
+    userid: {type: String},
+    password: {type: String},
+    username: {type: String},
+    isAdmin: {type: Boolean},
+    attendType: {type: Number}
 });
-
-var articleSchema = mongoose.Schema({
-    title : { type : String }, 
-	content : { type : String }, 
-	apikey : { type : String }, 
-	articleKey : { type : String }
+var quesSchema = mongoose.Schema({
+    articleid: {type: String},
+    title: {type: String},
+    date: {type: Date},
+    content: {type: String},
+    reply: {type: String},
+    author: {type: String},
+    password: {type: String}
 });
-
 var User = mongoose.model("User", userSchema);
-var Article = mongoose.model("Article", articleSchema);
+var Question = mongoose.model("Question", quesSchema);
 exports.mongoose = mongoose;
 exports.db = db;
-exports.userSchema = userSchema;
 exports.User = User;
-exports.Article = Article;
+exports.Question = Question;
