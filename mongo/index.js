@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/Alime');
 
 var userSchema = mongoose.Schema({
+    id: {type: String},
     userid: {type: String},
     password: {type: String},
     username: {type: String},
