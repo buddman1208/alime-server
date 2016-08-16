@@ -44,10 +44,15 @@ function question(app, db, randomstr) {
         } else res.sendStatus(403);
     });
     app.post('/question/deleteArticle', function (req, res) {
-        db.Question.findOneAndRemove({author: req.body.userid, articleid: req.body.articleid}, function (err, result) {
-            if (err) {
-                throw err;
-            } else res.sendStatus(200);
-        });
+        if(deleteArticleParams.every(str => req.body[str] != undefined || req.body[str] != null )) {
+            db.Question.findOneAndRemove({
+                author: req.body.userid,
+                articleid: req.body.articleid
+            }, function (err, result) {
+                if (err) {
+                    throw err;
+                } else res.sendStatus(200);
+            });
+        }
     });
 }
