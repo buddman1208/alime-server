@@ -30,7 +30,6 @@ function question(app, db, randomstr) {
         } else res.sendStatus(403);
     });
     app.post('/question/replyArticle', function (req, res) {
-        var replyArticleParams = ['id', 'articleid', 'content'];
         if (replyArticleParams.every(str => req.body[str] != undefined || req.body[str] != null)) {
             db.User.findOne({id: req.body.id}, function (err, doc) {
                 if (doc != null) {
@@ -43,5 +42,12 @@ function question(app, db, randomstr) {
                 } else res.sendStatus(401);
             })
         } else res.sendStatus(403);
+    });
+    app.post('/question/deleteArticle', function (req, res) {
+        db.Question.findOneAndRemove({author: req.body.userid, articleid: req.body.articleid}, function (err, result) {
+            if (err) {
+                throw err;
+            } else res.sendStatus(200);
+        });
     });
 }
