@@ -1,7 +1,6 @@
 module.exports = init;
 
-function init(app, mongo) {
-    var randomstr = require('randomstring');
+function init(app, mongo, randomstr) {
     var loginParams = ['userid', 'password'];
     var registerParams = ['userid', 'password', 'username', 'isAdmin', 'attendType'];
 

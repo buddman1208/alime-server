@@ -1,5 +1,5 @@
 module.exports = question;
 
-function question(app, db) {
+function question(app, db, randomstr) {
 
 }
