@@ -29,4 +29,19 @@ function question(app, db, randomstr) {
             })
         } else res.sendStatus(403);
     });
+    app.post('/question/replyArticle', function (req, res) {
+        var replyArticleParams = ['id', 'articleid', 'content'];
+        if (replyArticleParams.every(str => req.body[str] != undefined || req.body[str] != null)) {
+            db.User.findOne({id: req.body.id}, function (err, doc) {
+                if (doc != null) {
+                    if (doc.isAdmin == true) {
+                        db.Question.findOneAndUpdate({articleid: req.body.articleid}, {reply: req.body.content}, function (err, results) {
+                            if (err) console.log(err);
+                            else res.sendStatus(200);
+                        });
+                    } else res.sendStatus(401);
+                } else res.sendStatus(401);
+            })
+        } else res.sendStatus(403);
+    });
 }
