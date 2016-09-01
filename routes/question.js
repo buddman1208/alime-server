@@ -3,7 +3,8 @@ module.exports = question;
 function question(app, db, randomstr) {
     var newArticleParams = ['title', 'date', 'content', 'author', 'password'];
     var replyArticleParams = ['userid', 'articleid', 'content'];
-    var deleteArticleParams = ['userid', 'articleid']
+    var deleteArticleParams = ['userid', 'articleid'];
+    var deleteFromAdminParams = ['articleid'];
     app.post('/question/listArticle', function (req, res) {
         db.Question.find({}, function (err, docs) {
             if (err) throw err;
@@ -47,6 +48,17 @@ function question(app, db, randomstr) {
         if(deleteArticleParams.every(str => req.body[str] != undefined || req.body[str] != null )) {
             db.Question.findOneAndRemove({
                 author: req.body.userid,
+                articleid: req.body.articleid
+            }, function (err, result) {
+                if (err) {
+                    throw err;
+                } else res.sendStatus(200);
+            });
+        }
+    });
+    app.post('/question/deleteFromAdmin', function (req, res) {
+        if(deleteFromAdminParams.every(str => req.body[str] != undefined || req.body[str] != null )) {
+            db.Question.findOneAndRemove({
                 articleid: req.body.articleid
             }, function (err, result) {
                 if (err) {
